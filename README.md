@@ -5,7 +5,7 @@ List of configs:
 - zsh (shell)
 - wezterm (terminal)
 - bspwm (window manager)
-- picom
+- picom (X11 compositor)
 - dunst (desktop notification)
 - nvim (text editor)
 - polybar (status bar)
