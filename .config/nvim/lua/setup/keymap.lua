@@ -21,6 +21,8 @@ map("n", "<C-Down>", ":BufferLineCloseLeft<CR>", opts)
 -- format code
 -- map("n", "<C-f>", ":Prettier<CR>", opts)
 map("n", "<C-f>", ":lua vim.lsp.buf.format()<CR>", opts)
+
+-- keymap for goto-preview
 vim.keymap.set("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
 vim.keymap.set("n","gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", {noremap=true})
 vim.keymap.set("n","gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", {noremap=true})
