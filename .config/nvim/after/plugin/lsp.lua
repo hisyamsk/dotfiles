@@ -69,6 +69,12 @@ lspconfig.golangci_lint_ls.setup({
   on_attach = no_format
 })
 
+-- Lua
+lspconfig.lua_ls.setup({
+  capabilities = caps,
+  on_attach = no_format
+})
+
 -- sql
 lspconfig.sqlls.setup({
   capabilities = caps,
@@ -77,7 +83,7 @@ lspconfig.sqlls.setup({
 
 -- CSS 
 lspconfig.cssls.setup {
-  capabilities = capabilities,
+  capabilities = caps,
   on_attach = no_format
 }
 

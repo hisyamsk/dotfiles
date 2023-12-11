@@ -1,6 +1,15 @@
 local wezterm = require 'wezterm'
 local config = {}
 
+config.keys = {
+  -- This will create a new split and run your default program inside it
+  {
+    key = '"',
+    mods = 'CTRL|SHIFT|ALT',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+}
+
 config.color_scheme = 'mykanagawa'
 -- config.color_scheme = 'Twilight (base16)'
 config.font = wezterm.font('JetBrains Mono', { weight = 'Book' })
