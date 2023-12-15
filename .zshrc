@@ -138,6 +138,7 @@ alias picomrc="nvim ~/.config/picom.conf"
 alias weztermrc="nvim ~/.config/wezterm/"
 alias lfrc="nvim ~/.config/lf/"
 alias rofirc="nvim ~/.config/rofi/"
+alias dotfiles="nvim ~/dotfiles/dotfiles"
 ## run docker with privileges
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
@@ -151,6 +152,7 @@ alias start-mongodb="sudo systemctl start mongodb"
 alias start-docker="sudo systemctl start docker"
 alias start-postgres="sudo systemctl start postgresql"
 alias start-pgadmin="python3 -m venv pgadmin4;source pgadmin4/bin/activate"
+alias start-libvirtd="sudo systemctl start libvirtd.service"
 ## reload polybar
 alias reload-polybar="cd ~/.config/polybar/ && sh launch.sh"
 ## kill port
