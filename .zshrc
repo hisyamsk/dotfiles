@@ -19,8 +19,8 @@ PROMPT='%B%{$fg[blue]%}%~%{$fg[green]%}$(git_prompt) %{$reset_color%}➜%b '
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=6000
-SAVEHIST=6000
+HISTSIZE=10000
+SAVEHIST=10000
 
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
@@ -111,6 +111,7 @@ alias appname="xprop WM_CLASS"
 alias wifion="nmcli radio wifi on"
 alias wifioff="nmcli radio wifi off"
 alias ls="ls --color=auto"
+alias kctl="kubectl"
 ## Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -144,6 +145,7 @@ alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
 ## makefile
 alias make="sudo make"
+alias sudo-nvim="sudo -E -s nvim"
 ## shortcut
 alias myprojects="cd ~/Personal/projects"
 alias skripsi="cd ~/Personal/college/Skripsi/"
