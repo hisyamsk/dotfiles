@@ -129,17 +129,17 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 ## config
-alias zshrc="nvim ~/.zshrc"
-alias nvimrc="nvim ~/.config/nvim"
-alias polybarrc="nvim ~/.config/polybar"
-alias bspwmrc="nvim ~/.config/bspwm"
-alias sxhdkdrc="nvim ~/.config/sxhkd/sxhkdrc"
-alias dunstrc="nvim ~/.config/dunst"
-alias picomrc="nvim ~/.config/picom.conf"
-alias weztermrc="nvim ~/.config/wezterm/"
-alias lfrc="nvim ~/.config/lf/"
-alias rofirc="nvim ~/.config/rofi/"
-alias dotfiles="nvim ~/dotfiles/dotfiles"
+alias zshrc="cd ~/.zshrc"
+alias nvimrc="cd ~/.config/nvim"
+alias polybarrc="cd ~/.config/polybar"
+alias bspwmrc="cd ~/.config/bspwm"
+alias sxhdkdrc="cd ~/.config/sxhkd/sxhkdrc"
+alias dunstrc="cd ~/.config/dunst"
+alias picomrc="cd ~/.config/picom.conf"
+alias weztermrc="cd ~/.config/wezterm/"
+alias lfrc="cd ~/.config/lf/"
+alias rofirc="cd ~/.config/rofi/"
+alias dotfiles="cd ~/dotfiles/dotfiles"
 ## run docker with privileges
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
