@@ -12,11 +12,11 @@ null_ls.setup({
 
       -- format on save
       -- vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
-      -- vim.cmd("autocmd BufWritePre *.go lua vim.lsp.buf.format()")
+      vim.cmd("autocmd BufWritePre *.go lua vim.lsp.buf.format()")
     end
 
-    if client.server_capabilities.documentRangeFormattingProvider then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
-    end
+    -- if client.server_capabilities.documentRangeFormattingProvider then
+    --   vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+    -- end
   end,
 })

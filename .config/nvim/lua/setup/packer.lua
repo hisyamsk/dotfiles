@@ -20,20 +20,17 @@ return require('packer').startup(function(use)
 
   -- terminal wrapper
   use('akinsho/toggleterm.nvim')
-  
+  use('f-person/git-blame.nvim')
+
   -- pairs
   use('tpope/vim-surround')
   use('jiangmiao/auto-pairs')
 
   -- code folding
-  use ({'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'})  
-
-  -- indent line
-  use('lukas-reineke/indent-blankline.nvim')
+  use ({'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'})
 
   -- git 
   use('dinhhuy258/git.nvim')
-  use('f-person/git-blame.nvim')
 
   -- Completion
   use("hrsh7th/cmp-buffer")
@@ -62,9 +59,17 @@ return require('packer').startup(function(use)
   use("L3MON4D3/LuaSnip")
   use("saadparwaiz1/cmp_luasnip")
 
-  -- Syntax parser
-  use("nvim-treesitter/nvim-treesitter")
+  -- Indent line
+  use("lukas-reineke/indent-blankline.nvim")
 
+  -- Treesitter
+  use({
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+      end,
+  })
   -- Comment
   use("terrortylor/nvim-comment")
 
@@ -92,12 +97,4 @@ return require('packer').startup(function(use)
     }
   })
   use("nvim-lualine/lualine.nvim")
-
-  -- lsp code preview
-  use({
-    'rmagatti/goto-preview',
-    config = function()
-      require('goto-preview').setup {}
-    end
-  })
 end)

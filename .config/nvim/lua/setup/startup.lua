@@ -21,11 +21,14 @@ require("bufferline").setup({
 -- Lualine
 require("lualine").setup()
 
--- Indent Line 
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-}
+-- -- Indent Line 
+require("ibl").setup({
+  indent = {
+    char = {"│"},
+    tab_char = {"│"},
+  },
+  scope = { enabled = false }
+})
 
 require('kanagawa').setup({
   compile = true,
@@ -92,4 +95,3 @@ end
 require('ufo').setup({
   fold_virt_text_handler = handler
 })
-require('goto-preview').setup()
