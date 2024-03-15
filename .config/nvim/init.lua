@@ -101,7 +101,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -131,6 +131,9 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- add title
+vim.opt.title = true
+
 -- Decrease update time
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
@@ -142,8 +145,8 @@ vim.opt.splitbelow = true
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
--- vim.opt.list = true
--- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.list = true
+vim.opt.listchars = { tab = '│ ', trail = '·', nbsp = '␣' }
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -179,8 +182,34 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Open file tree (neo-tree)
-vim.keymap.set('n', '<C-e>', ':Neotree toggle <CR>')
+-- Open neo tree (neo-tree)
+vim.keymap.set('n', '<C-e>', '<Cmd>Neotree toggle <CR>')
+
+local opts = { noremap = true, silent = true }
+-- tabs keymap
+-- Move to previous/next
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+-- Re-order to previous/next
+vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+-- Goto buffer in position...
+vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+-- Pin/unpin buffer
+vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+-- Close buffer
+vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+vim.keymap.set('n', '<A-Up>', '<Cmd>BufferCloseBuffersRight<CR>', opts)
+vim.keymap.set('n', '<A-Down>', '<Cmd>BufferCloseBuffersLeft<CR>', opts)
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -208,15 +237,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
-})
-
-local format_sync_grp = vim.api.nvim_create_augroup('GoImport', {})
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*.go',
-  callback = function()
-    require('go.format').goimport()
-  end,
-  group = format_sync_grp,
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -279,24 +299,52 @@ require('lazy').setup({
     opts = {},
   },
 
-  -- go.nvim
-  {
-    'ray-x/go.nvim',
-    dependencies = { -- optional packages
-      'ray-x/guihua.lua',
-      'neovim/nvim-lspconfig',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('go').setup()
-    end,
-    event = { 'CmdlineEnter' },
-    ft = { 'go', 'gomod' },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-  },
+  -- go.nvim, unused due to noticable performance issues on big project with > 3000 lines
+  -- {
+  --   'ray-x/go.nvim',
+  --   dependencies = { -- optional packages
+  --     'ray-x/guihua.lua',
+  --     'neovim/nvim-lspconfig',
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  --   config = function()
+  --     local format_sync_grp = vim.api.nvim_create_augroup('GoImport', {})
+  --     vim.api.nvim_create_autocmd('BufWritePre', {
+  --       pattern = '*.go',
+  --       callback = function()
+  --         require('go.format').goimport()
+  --       end,
+  --       group = format_sync_grp,
+  --     })
+  --     require('go').setup()
+  --   end,
+  --   event = { 'CmdlineEnter' },
+  --   ft = { 'go', 'gomod' },
+  --   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  -- },
 
+  { 'hrsh7th/cmp-cmdline' },
   -- auto closing brackets
   { 'm4xshen/autoclose.nvim', opts = {} },
+
+  -- tabs
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      -- animation = true,
+      -- insert_at_start = true,
+      -- …etc.
+    },
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
 
   -- file tree (neo-tree)
   {
@@ -622,9 +670,9 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- dockerls = {},
+        gopls = {},
+        pyright = {},
+        dockerls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -754,6 +802,10 @@ require('lazy').setup({
             luasnip.lsp_expand(args.body)
           end,
         },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         completion = { completeopt = 'menu,menuone,noinsert' },
 
         -- For an understanding of why these mappings were
@@ -800,20 +852,80 @@ require('lazy').setup({
           { name = 'luasnip' },
           { name = 'path' },
         },
+        formatting = {
+          expandable_indicator = true,
+          fields = { 'abbr', 'kind', 'menu' },
+          format = function(entry, vim_item)
+            local kind_icons = {
+              Text = '󰉿',
+              Method = '󰆧',
+              Function = '󰊕',
+              Constructor = '',
+              Field = ' ',
+              Variable = '󰀫',
+              Class = '󰠱',
+              Interface = '',
+              Module = '',
+              Property = '󰜢',
+              Unit = '󰑭',
+              Value = '󰎠',
+              Enum = '',
+              Keyword = '󰌋',
+              Snippet = '',
+              Color = '󰏘',
+              File = '󰈙',
+              Reference = '',
+              Folder = '󰉋',
+              EnumMember = '',
+              Constant = '󰏿',
+              Struct = '',
+              Event = '',
+              Operator = '󰆕',
+              TypeParameter = ' ',
+              Misc = ' ',
+            }
+            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+            vim_item.menu = ({
+              buffer = '[Buffer]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[Snippet]',
+              nvim_lua = '[Lua]',
+              path = '[Path]',
+            })[entry.source.name]
+            return vim_item
+          end,
+        },
       }
+
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' },
+        },
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          { name = 'cmdline' },
+        }),
+      })
     end,
   },
 
   -- indent line
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = {
-        char = '│',
-      },
-    },
-  },
+  -- {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   main = 'ibl',
+  --   opts = {
+  --     indent = {
+  --       char = '│',
+  --     },
+  --   },
+  -- },
 
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
