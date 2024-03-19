@@ -204,6 +204,7 @@ vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
 vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
 vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
 vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+vim.keymap.set('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Pin/unpin buffer
 vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 -- Close buffer
@@ -236,6 +237,29 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*.go',
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { 'source.organizeImports' } }
+    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+    -- machine and codebase, you may want longer. Add an additional
+    -- argument after params if you find that you have to write the file
+    -- twice for changes to be saved.
+    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+    local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or 'utf-16'
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format { async = false }
   end,
 })
 
