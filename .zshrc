@@ -129,7 +129,7 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 ## config
-alias zshrc="cd ~/.zshrc"
+alias zshrc="nvim ~/.zshrc"
 alias nvimrc="cd ~/.config/nvim"
 alias polybarrc="cd ~/.config/polybar"
 alias bspwmrc="cd ~/.config/bspwm"

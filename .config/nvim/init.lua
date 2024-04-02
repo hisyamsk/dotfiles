@@ -111,7 +111,10 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
+-- copy to OS clipboard
+vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Copy to OS Clipboard' })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Copy to OS Clipboard' })
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -239,6 +242,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- move highlighted text up/down using visual mode
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.go',
