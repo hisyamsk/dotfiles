@@ -12,7 +12,9 @@ git_prompt() {
     [ -n "${branch}" ] && echo " ( ${branch})"
 }
 setopt PROMPT_SUBST
-PROMPT='%B%{$fg[blue]%}%~%{$fg[green]%}$(git_prompt) %{$reset_color%}➜%b '
+autoload -Uz promptinit; promptinit
+PROMPT='%B%{$fg[blue]%}%~%{$fg[green]%}$(git_prompt) %{$reset_color%}$prompt_newline➜%b '
+# PROMPT='%B%{$fg[blue]%}%~%{$fg[green]%}$(git_prompt) %{$reset_color%}➜%b '
 # PROMPT='%B%{$fg[blue]%}%~%{$fg[green]%}$(git_prompt) %{$reset_color%}➜%b '
 # PROMPT='%B%{$fg[red]%}[%{$fg[white]%}%n%{$fg[blue]%}@%{$fg[white]%}%M %{$fg[blue]%}%~%{$fg[red]%}]%{$fg[green]%}$(git_prompt) %{$reset_color%}%(?.$.%{$fg[red]%}$)%b '
 # PROMPT="%B%{$fg[red]%}[%{$fg[white]%}%n%{$fg[blue]%}@%{$fg[white]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$fg[red]%}$(git_prompt)%{$reset_color%} %(?.$.%{$fg[red]%}$)%b"
@@ -37,6 +39,15 @@ function zle-keymap-select {
         vicmd) echo -ne '\e[2 q';;      # block
         viins|main) echo -ne '\e[1 q';; # beam
     esac
+}
+
+function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+	cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
 }
 
 zle-line-init() {
@@ -123,7 +134,6 @@ alias rm='rm -i'
 ## easier to read disk
 alias df='df -h'     # human-readable sizes
 alias free='free -m' # show sizes in MB
-alias lf='lfub'
 # get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
@@ -137,7 +147,7 @@ alias sxhdkdrc="cd ~/.config/sxhkd/sxhkdrc"
 alias dunstrc="cd ~/.config/dunst"
 alias picomrc="cd ~/.config/picom.conf"
 alias weztermrc="cd ~/.config/wezterm/"
-alias lfrc="cd ~/.config/lf/"
+alias yzrc="cd ~/.config/yazi/"
 alias rofirc="cd ~/.config/rofi/"
 alias dotfiles="cd ~/dotfiles/dotfiles"
 ## run docker with privileges
