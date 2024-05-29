@@ -11,3 +11,4 @@ List of configs:
 - polybar (status bar)
 - rofi (app launcher)
 - sxhkd (shortcut manager)
+- yazi (file manager)
