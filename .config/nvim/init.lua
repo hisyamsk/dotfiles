@@ -125,11 +125,11 @@ vim.opt.breakindent = true
 -- Save undo history
 vim.opt.undofile = true
 
--- nvim-ufo config
-vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+-- folding
+vim.o.foldlevel = 20
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -189,7 +189,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Open neo tree (neo-tree)
-vim.keymap.set('n', '<C-e>', '<Cmd>Neotree toggle <CR>')
+vim.keymap.set('n', '<C-e>', '<Cmd>Explore<CR>')
 
 local opts = { noremap = true, silent = true }
 -- tabs keymap
@@ -234,6 +234,7 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+vim.keymap.set('n', 'gbt', '<Cmd>GitBlameToggle <CR>', { desc = 'Toggle git blame' })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -282,7 +283,6 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- nvim-ufo config
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
@@ -336,7 +336,9 @@ require('lazy').setup({
   -- git blame info
   {
     'f-person/git-blame.nvim',
-    opts = {},
+    opts = {
+      enabled = false,
+    },
   },
   --
 
@@ -385,17 +387,6 @@ require('lazy').setup({
       -- …etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
-
-  -- file tree (neo-tree)
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
   },
 
   -- terminal
@@ -790,15 +781,6 @@ require('lazy').setup({
         -- javascript = { { "prettierd", "prettier" } },
       },
     },
-  },
-
-  {
-    -- code folding
-    'kevinhwang91/nvim-ufo',
-    dependencies = {
-      'kevinhwang91/promise-async',
-    },
-    opts = {},
   },
 
   { -- Autocompletion
