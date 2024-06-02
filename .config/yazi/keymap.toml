@@ -146,6 +146,7 @@ keymap = [
 	{ on = [ "g", "t" ],       run = "cd /tmp",          desc = "Go to the temporary directory" },
 	{ on = [ "g", "s" ],       run = "cd ~/Personal/college/Skripsi",          desc = "Go to the skripsi directory" },
 	{ on = [ "g", "p" ],       run = "cd ~/Personal/projects",       desc = "Go to the projects directory" },
+	{ on = [ "g", "P" ],       run = "cd ~/Personal/",       desc = "Go to the personal directory" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# Help
