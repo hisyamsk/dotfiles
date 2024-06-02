@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	wezterm
+	kitty
 
 # program launcher
 super + d
@@ -14,7 +14,7 @@ super + d
 
 # emoji selector
 super + m
-  rofi -modi emoji -show emoji -line-padding 4 \
+	rofi -modi emoji -show emoji -line-padding 4 \
                 -columns 2 -padding 50 -hide-scrollbar -terminal wezterm \
                 -font "Droid Sans Bold 10"
 
