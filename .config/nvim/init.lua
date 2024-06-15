@@ -55,7 +55,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 vim.opt.guicursor = 'n-v-c:block-blinkon0'
-vim.opt.guicursor = 'i-ci:block'
+vim.opt.guicursor = 'i-ci:block-blinkwait175-blinkoff150-blinkon175'
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -72,6 +72,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<C-\\>', '<Cmd>terminal<CR>', { desc = 'enter terminal mode' })
 
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
@@ -81,8 +82,8 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
 vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
 -- Re-order to previous/next
-vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+vim.keymap.set('n', '<C-,>', '<Cmd>BufferMovePrevious<CR>', opts)
+vim.keymap.set('n', '<C-.>', '<Cmd>BufferMoveNext<CR>', opts)
 -- Goto buffer in position...
 vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
 vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
@@ -132,12 +133,11 @@ vim.opt.rtp:prepend(lazypath)
 local args = require 'plugins.args'
 require('lazy').setup({
   require 'plugins.vim-sleuth',
+  require 'plugins.surround',
   require 'plugins.comment',
-  require 'plugins.gitsigns',
   require 'plugins.cmp-cmdline',
   require 'plugins.barbar',
   require 'plugins.oil',
-  require 'plugins.statusline',
   require 'plugins.fzf',
   require 'plugins.lsp',
   require 'plugins.conform',
@@ -145,11 +145,12 @@ require('lazy').setup({
   require 'plugins.kanagawa',
   require 'plugins.treesitter',
   require 'plugins.mini',
+  require 'plugins.gitsigns',
+  require 'plugins.statusline',
+  -- require 'plugins.lualine',
+  -- require 'plugins.gitblame',
   -- require 'plugins.which-key',
   -- require 'plugins.indent-blankline'
   -- require 'plugins.go'
   -- require 'plugins.ufo'
 }, args)
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
