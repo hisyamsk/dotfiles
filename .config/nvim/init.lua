@@ -108,7 +108,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 --  See `:help lua-guide-autocommands`
-vim.keymap.set('n', 'gbt', '<Cmd>Gitsigns toggle_current_line_blame<CR>', { desc = 'Toggle git blame' })
+vim.keymap.set('n', 'gbt', '<Cmd>GitBlameToggle<CR>', { desc = 'Toggle git blame' })
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -145,11 +145,11 @@ require('lazy').setup({
   require 'plugins.kanagawa',
   require 'plugins.treesitter',
   require 'plugins.mini',
-  require 'plugins.gitsigns',
+  require 'plugins.gitblame',
   require 'plugins.statusline',
   -- require 'plugins.lualine',
-  -- require 'plugins.gitblame',
   -- require 'plugins.which-key',
+  -- require 'plugins.gitsigns',
   -- require 'plugins.indent-blankline'
   -- require 'plugins.go'
   -- require 'plugins.ufo'
