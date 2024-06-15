@@ -23,7 +23,7 @@ bspc rule -a Gimp-2.10 desktop='^8' state=floating follow=on
 bspc rule -a libreoffice-startcenter desktop='^8'
 bspc rule -a zoom desktop='^9' follow=on
 bspc rule -a Screenkey manage=off
-bspc rule -a Zathura state=tiled
+bspc rule -a Zathura desktop '^1' follow=on
 bspc rule -a qpdfview desktop='^1' follow=on
 
 # Border

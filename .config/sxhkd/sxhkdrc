@@ -38,6 +38,21 @@ super + shift + e
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# add to tabbed container
+ctrl + alt + {Left,Down,Up,Right}
+    tabc attach $(bspc query -N -n) {$(bspc query -N -n west),$(bspc query -N -n south),$(bspc query -N -n north),$(bspc query -N -n east)}
+
+# create/remove from tabbed container
+super + z 
+    id=$(bspc query -N -n); \
+    [[ "$(tabc printclass $id)" == "tabbed" ]] \
+    && tabc detach $id \
+    || tabc create $id 
+
+# toggle autoattach in tabbed container
+super + shift + z 
+    tabc autoattach $(bspc query -N -n) 
+
 #
 # bspwm hotkeys
 #
@@ -174,13 +189,15 @@ XF86MonBrightnessDown
 Print
   scrot ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
 
-super + Print
+# Screenshot
+super + {Print,u}
   ~/.config/bspwm/scripts/screenshot.sh
 
 # Shortcuts
 super + w 
   firefox
 
+# thunar
 super + e 
   thunar
 
