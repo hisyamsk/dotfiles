@@ -114,8 +114,8 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-# run neofetch on terminal startup
-# neofetch
+# run fastfetch on terminal startup
+# fastfetch
 
 ################## ALIASES ##################
 alias appname="xprop WM_CLASS"
@@ -147,6 +147,7 @@ alias sxhdkdrc="cd ~/.config/sxhkd"
 alias dunstrc="cd ~/.config/dunst"
 alias picomrc="cd ~/.config/picom.conf"
 alias weztermrc="cd ~/.config/"
+alias kittyrc="cd ~/.config/kitty"
 alias yzrc="cd ~/.config/yazi/"
 alias rofirc="cd ~/.config/rofi/"
 alias dotfiles="cd ~/dotfiles/dotfiles"
@@ -178,4 +179,4 @@ with_env () {
 
 source /home/hisyam/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/hisyam/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-eval "$(fnm env --use-on-cd)"
+# eval "$(fnm env --use-on-cd)"
