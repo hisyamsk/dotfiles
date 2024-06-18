@@ -12,3 +12,6 @@ List of configs:
 - rofi (app launcher)
 - sxhkd (shortcut manager)
 - yazi (file manager)
+
+## dependencies
+- [tabbed](https://github.com/hisyamsk/tabbed) required for the tabbing functionality in bspwm
