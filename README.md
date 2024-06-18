@@ -15,3 +15,4 @@ List of configs:
 
 ## dependencies
 - [tabbed](https://github.com/hisyamsk/tabbed) required for the tabbing functionality in bspwm
+- [bsptab](https://github.com/albertored11/bsptab) scripts handling the tabbed to work in bspwm
