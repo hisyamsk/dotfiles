@@ -29,6 +29,8 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
 export IDEA=HOME"/opt/idea-IU-233.11799.241"
 export PATH=$PATH:$IDEA_HOME/bin
+export _JAVA_AWT_WM_NONREPARENTING=1
+export AWT_TOOLKIT=MToolkit
 
 ################# VI-MODE #################
 bindkey -v
@@ -177,6 +179,16 @@ with_env () {
   eval "$(grep -vE '^#' "$1" | xargs)" "${@:2}"
 }
 
+crun() {
+    gcc "$1" -o temp_program && ./temp_program && rm -f temp_program
+}
+
 source /home/hisyam/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/hisyam/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # eval "$(fnm env --use-on-cd)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/hisyam/Downloads/gcp/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hisyam/Downloads/gcp/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/hisyam/Downloads/gcp/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hisyam/Downloads/gcp/google-cloud-sdk/completion.zsh.inc'; fi

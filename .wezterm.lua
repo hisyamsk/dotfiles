@@ -8,12 +8,17 @@ config.keys = {
 		mods = "CTRL|SHIFT|ALT",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
+	{
+		key = "%",
+		mods = "CTRL|SHIFT|ALT",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
 }
 
 config.color_scheme = "mykanagawa"
 -- config.color_scheme = 'Twilight (base16)'
 config.font = wezterm.font("JetBrains Mono", { weight = "Book" })
-config.tab_bar_at_bottom = true
+config.tab_bar_at_bottom = false
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 -- config.window_background_opacity = 0.92
