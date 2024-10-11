@@ -1,4 +1,4 @@
-return {
+local gitsigns = {
   'lewis6991/gitsigns.nvim',
   opts = {},
   config = function()
@@ -47,3 +47,14 @@ return {
     }
   end,
 }
+
+local gitblame = {
+  'f-person/git-blame.nvim',
+  config = function()
+    require('gitblame').setup {
+      enabled = false,
+    }
+  end,
+}
+
+return gitsigns

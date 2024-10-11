@@ -195,7 +195,7 @@ super + {Print,u}
 
 # Shortcuts
 super + w 
-  firefox
+  zen-browser
 
 # thunar
 super + e 
