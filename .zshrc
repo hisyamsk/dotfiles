@@ -180,7 +180,13 @@ with_env () {
 }
 
 crun() {
-    gcc "$1" -o temp_program && ./temp_program && rm -f temp_program
+    flags="$2"
+
+    if [[ -n "$flags" ]]; then
+        gcc "$1" $flags -o temp_program && ./temp_program && rm -f temp_program
+    else
+        gcc "$1" -o temp_program && ./temp_program && rm -f temp_program
+    fi
 }
 
 source /home/hisyam/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
