@@ -5,7 +5,7 @@ notify-send -t 5000 "Battery notifier running..."
 ### VARIABLES
 
 POLL_INTERVAL=120    # seconds at which to check battery level
-LOW_BAT=25           # lesser than this is considered low battery
+LOW_BAT=20           # lesser than this is considered low battery
 MAX_BAT=99
 
 # If BAT0 doesn't work for you, check available devices with command below
