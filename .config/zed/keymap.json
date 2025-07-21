@@ -13,14 +13,15 @@
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
       "ctrl-`": "workspace::ToggleBottomDock",
-      "space p": "editor::Format",
+      "space f": "editor::Format",
       "space space": "file_finder::Toggle",
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem",
+      "shift-h": "pane::ActivatePreviousItem",
       "space v": "pane::SplitRight",
       "ctrl-w": "pane::CloseActiveItem",
       "space h": "workspace::ActivateNextPane",
-      "space l": "workspace::ActivatePreviousPane"
+      "space l": "workspace::ActivatePreviousPane",
+      "space p": "editor::Paste"
     }
   },
   {
@@ -36,15 +37,17 @@
     "context": "Editor && vim_mode == visual",
     "bindings": {
       "shift-j": "editor::MoveLineDown",
-      "shift-k": "editor::MoveLineUp"
+      "shift-k": "editor::MoveLineUp",
+      "space y": "editor::Copy",
+      "space p": "editor::Paste"
     }
   },
   {
     "context": "ProjectPanel",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
-      "a": "project_panel::NewFile",
-      "shift-a": "project_panel::NewDirectory"
+      "ctrl n": "project_panel::NewFile",
+      "ctrl shift n": "project_panel::NewDirectory"
     }
   },
   {
@@ -55,7 +58,6 @@
   },
   {
     "context": "Dock",
-
     "bindings": {
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
