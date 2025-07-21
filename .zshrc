@@ -147,7 +147,7 @@ alias polybarrc="cd ~/.config/polybar"
 alias bspwmrc="cd ~/.config/bspwm"
 alias sxhdkdrc="cd ~/.config/sxhkd"
 alias dunstrc="cd ~/.config/dunst"
-alias picomrc="cd ~/.config/picom.conf"
+alias picomrc="nvim ~/.config/picom.conf"
 alias weztermrc="cd ~/.config/"
 alias kittyrc="cd ~/.config/kitty"
 alias yzrc="cd ~/.config/yazi/"
@@ -161,15 +161,9 @@ alias make="sudo make"
 alias sudo-nvim="sudo -E -s nvim"
 ## shortcut
 alias myprojects="cd ~/Personal/projects"
-alias skripsi="cd ~/Personal/college/Skripsi/"
-## start service
-alias start-mongodb="sudo systemctl start mongodb"
-alias start-docker="sudo systemctl start docker"
-alias start-postgres="sudo systemctl start postgresql"
 alias start-pgadmin="python3 -m venv pgadmin4;source pgadmin4/bin/activate"
-alias start-libvirtd="sudo systemctl start libvirtd.service"
 ## reload polybar
-alias reload-polybar="cd ~/.config/polybar/ && sh launch.sh"
+alias reload-polybar="cd ~/.config/polybar/ && sh launch.sh &"
 ## kill port
 killport() {
   kill $(lsof -t -i:"$1")
