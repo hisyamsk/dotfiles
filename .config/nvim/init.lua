@@ -10,6 +10,8 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
+vim.opt.termguicolors = true
+
 -- copy to OS clipboard
 vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Copy to OS Clipboard' })
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Copy to OS Clipboard' })
@@ -70,46 +72,21 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- NOTE: This won't work in all terminal emulators/tmux/etc
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<C-\\>', '<Cmd>terminal<CR>', { desc = 'enter terminal mode' })
-
-vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-
-local opts = { noremap = true, silent = true }
--- tabs keymap
--- Move to previous/next
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
--- Re-order to previous/next
-vim.keymap.set('n', '<C-,>', '<Cmd>BufferMovePrevious<CR>', opts)
-vim.keymap.set('n', '<C-.>', '<Cmd>BufferMoveNext<CR>', opts)
--- Goto buffer in position...
-vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
-vim.keymap.set('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
--- Pin/unpin buffer
-vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
--- Close buffer
-vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-vim.keymap.set('n', '<A-Up>', '<Cmd>BufferCloseBuffersRight<CR>', opts)
-vim.keymap.set('n', '<A-Down>', '<Cmd>BufferCloseBuffersLeft<CR>', opts)
-
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
---  See `:help lua-guide-autocommands`
 vim.keymap.set('n', 'gbt', '<Cmd>Gitsigns toggle_current_line_blame<CR>', { desc = 'Toggle git blame' })
+
+-- Next/previous buffer
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
+vim.keymap.set('n', '<S-Tab>', ':bprev<CR>', { silent = true })
+
+-- Jump to buffer by number (1–9)
+for i = 1, 9 do
+  vim.keymap.set('n', '<A-' .. i .. '>', function()
+    local bufs = vim.fn.getbufinfo { buflisted = 1 }
+    if bufs[i] then
+      vim.cmd('buffer ' .. bufs[i].bufnr)
+    end
+  end, { desc = 'Go to buffer ' .. i })
+end
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -124,6 +101,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
+vim.keymap.set('n', '<leader>-', ':Explore <CR>')
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -137,8 +116,6 @@ require('lazy').setup({
   require 'plugins.surround',
   require 'plugins.comment',
   require 'plugins.cmp-cmdline',
-  require 'plugins.barbar',
-  require 'plugins.oil',
   require 'plugins.fzf',
   require 'plugins.lsp',
   require 'plugins.conform',
@@ -147,9 +124,4 @@ require('lazy').setup({
   require 'plugins.treesitter',
   require 'plugins.mini',
   require 'plugins.git',
-  require 'plugins.statusline',
-  -- require 'plugins.which-key',
-  -- require 'plugins.indent-blankline'
-  -- require 'plugins.go'
-  -- require 'plugins.ufo'
 }, args)
