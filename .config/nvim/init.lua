@@ -72,11 +72,9 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set('n', 'gbt', '<Cmd>Gitsigns toggle_current_line_blame<CR>', { desc = 'Toggle git blame' })
-
 -- Next/previous buffer
-vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
-vim.keymap.set('n', '<S-Tab>', ':bprev<CR>', { silent = true })
+vim.keymap.set('n', ']b', ':bnext<CR>', { silent = true })
+vim.keymap.set('n', '[b', ':bprev<CR>', { silent = true })
 
 -- Jump to buffer by number (1–9)
 for i = 1, 9 do
@@ -87,6 +85,9 @@ for i = 1, 9 do
     end
   end, { desc = 'Go to buffer ' .. i })
 end
+
+-- close buffer
+vim.keymap.set('n', '<A-x>', ':bd<CR>')
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -103,6 +104,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 vim.keymap.set('n', '<leader>-', ':Explore <CR>')
 
+vim.opt.wildignore:append { '*.o', '*.a', 'node_modules/*', '.git/*' }
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -112,10 +115,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local args = require 'plugins.args'
 require('lazy').setup({
+  require 'plugins.lazydev',
   require 'plugins.vim-sleuth',
   require 'plugins.surround',
-  require 'plugins.comment',
-  require 'plugins.cmp-cmdline',
   require 'plugins.fzf',
   require 'plugins.lsp',
   require 'plugins.conform',
@@ -123,5 +125,4 @@ require('lazy').setup({
   require 'plugins.kanagawa',
   require 'plugins.treesitter',
   require 'plugins.mini',
-  require 'plugins.git',
 }, args)

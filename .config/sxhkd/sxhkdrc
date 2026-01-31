@@ -190,7 +190,7 @@ Print
   scrot ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
 
 # Screenshot
-super + {Print,u}
+super + shift + s; super + {Print,u}
   ~/.config/bspwm/scripts/screenshot.sh
 
 # Shortcuts

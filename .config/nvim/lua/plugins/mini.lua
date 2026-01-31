@@ -27,6 +27,8 @@ return { -- Collection of various small independent plugins/modules
       },
       require('mini.bufremove').setup(),
       require('mini.tabline').setup(),
+      require('mini.comment').setup(),
+      require('mini.diff').setup(),
 
       vim.keymap.set('n', '<A-c>', function()
         require('mini.bufremove').delete(0, false)

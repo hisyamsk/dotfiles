@@ -11,14 +11,14 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "space e": "workspace::ToggleLeftDock",
+      "space -": "workspace::ToggleLeftDock",
       "ctrl-`": "workspace::ToggleBottomDock",
       "space f": "editor::Format",
-      "space space": "file_finder::Toggle",
+      "space s f": "file_finder::Toggle",
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePreviousItem",
       "space v": "pane::SplitRight",
-      "ctrl-w": "pane::CloseActiveItem",
+      "alt-c": "pane::CloseActiveItem",
       "space h": "workspace::ActivateNextPane",
       "space l": "workspace::ActivatePreviousPane",
       "space p": "editor::Paste"
@@ -45,15 +45,16 @@
   {
     "context": "ProjectPanel",
     "bindings": {
-      "space e": "workspace::ToggleLeftDock",
-      "ctrl n": "project_panel::NewFile",
-      "ctrl shift n": "project_panel::NewDirectory"
+      "space -": "workspace::ToggleLeftDock",
+      "space a": "project_panel::NewFile",
+      "space shift-a": "project_panel::NewDirectory"
     }
   },
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-`": "workspace::ToggleBottomDock"
+      "ctrl-`": "workspace::ToggleBottomDock",
+      "ctrl-l": "terminal::Clear"
     }
   },
   {
