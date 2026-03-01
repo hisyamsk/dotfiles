@@ -173,14 +173,16 @@ with_env () {
   eval "$(grep -vE '^#' "$1" | xargs)" "${@:2}"
 }
 
-crun() {
-    flags="$2"
+c99() {
+    local src="$1"
+    shift
 
-    if [[ -n "$flags" ]]; then
-        gcc "$1" $flags -o temp_program && ./temp_program && rm -f temp_program
-    else
-        gcc "$1" -o temp_program && ./temp_program && rm -f temp_program
-    fi
+    gcc -std=c99 -Wall -Wextra -Wpedantic -lm \
+        "$src" "$@" -o main
+
+    local exit_code=$?
+    rm -f temp_program
+    return $exit_code
 }
 
 source /home/hisyam/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
