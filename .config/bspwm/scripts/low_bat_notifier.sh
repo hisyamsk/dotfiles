@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-notify-send -t 5000 "Battery notifier running..."
 
 ### VARIABLES
 
 POLL_INTERVAL=120    # seconds at which to check battery level
-LOW_BAT=20           # lesser than this is considered low battery
+LOW_BAT=25           # lesser than this is considered low battery
 MAX_BAT=99
 
 # If BAT0 doesn't work for you, check available devices with command below
@@ -46,6 +45,7 @@ launched=0
 if ls -1qA /sys/class/power_supply/ | grep -q BAT
 then 
     kill_running
+    notify-send -t 5000 "Battery notifier running..."
 
     while true
     do
@@ -55,7 +55,7 @@ then
 
         bat_percent=$(( 100 * $bn / $bf ))
 
-        if [[ $bat_percent -lt $LOW_BAT && "$bs" = "Discharging" && $launched -lt 5000 ]]
+        if [[ $bat_percent -lt $LOW_BAT && "$bs" = "Discharging" ]]
         then
             message=$'Warning!\nLow Battery: '$bat_percent"%"
             paplay ~/.config/bspwm/scripts/notification_sound.mp3 && notify-send -t 15000 --urgency=critical "$message" -i /usr/share/icons/Zafiro-Nord-Dark-Black/panel/22/battery-caution-symbolic.svg
@@ -77,6 +77,6 @@ then
             paplay ~/.config/bspwm/scripts/notification_sound.mp3 && notify-send -t 10000 "Battery Discarging: $bat_percent%"
             launched=0
         fi
-        sleep 120
+        sleep 90
     done
 fi
