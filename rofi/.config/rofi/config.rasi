@@ -1,0 +1,20 @@
+configuration {
+    modi:                  "drun,run";
+    show-icons:            true;
+    icon-theme:            "Adwaita";
+    terminal:              "foot";
+    drun-display-format:   "{name}";
+    combi-display-format:  "{text}";
+    display-drun:          "";
+    display-run:           "";
+    display-combi:         "";
+    matching:              "fuzzy";
+    sort:                  true;
+    sorting-method:        "fzf";
+    disable-history:       false;
+    hover-select:          true;
+    me-select-entry:       "";
+    me-accept-entry:       "MousePrimary";
+}
+
+@theme "kanagawa"
