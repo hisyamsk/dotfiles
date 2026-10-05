@@ -1,0 +1,94 @@
+# Kanagawa — monotone, matches waybar
+
+[global]
+    monitor = 0
+    follow = mouse
+
+    # Geometry
+    width = 360
+    height = (0, 200)
+    origin = top-right
+    offset = (10, 10)
+    notification_limit = 5
+    gap_size = 8
+
+    # Progress bar
+    progress_bar = true
+    progress_bar_height = 6
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 150
+    progress_bar_max_width = 360
+    progress_bar_corner_radius = 3
+
+    # Look
+    indicate_hidden = yes
+    transparency = 0
+    separator_height = 0
+    padding = 12
+    horizontal_padding = 14
+    text_icon_padding = 12
+    frame_width = 1
+    frame_color = "#363646"
+    separator_color = frame
+    corner_radius = 6
+    sort = yes
+
+    # Text
+    font = JetBrainsMono Nerd Font 10
+    line_height = 2
+    markup = full
+    format = "<b>%s</b>\n<span foreground='#C8C093'>%b</span>"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = end
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = no
+
+    # Icons
+    enable_recursive_icon_lookup = true
+    icon_theme = Adwaita
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 40
+
+    # History
+    sticky_history = yes
+    history_length = 20
+
+    # Misc
+    dmenu = /usr/bin/rofi -dmenu -p "notification"
+    browser = /usr/bin/xdg-open
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    ignore_dbusclose = false
+    layer = overlay
+
+    # Mouse
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "#1F1F28"
+    foreground = "#727169"
+    highlight = "#727169"
+    frame_color = "#2A2A37"
+    timeout = 5
+
+[urgency_normal]
+    background = "#1F1F28"
+    foreground = "#DCD7BA"
+    highlight = "#7E9CD8"
+    frame_color = "#363646"
+    timeout = 8
+
+[urgency_critical]
+    background = "#1F1F28"
+    foreground = "#DCD7BA"
+    highlight = "#E46876"
+    frame_color = "#E46876"
+    timeout = 0
