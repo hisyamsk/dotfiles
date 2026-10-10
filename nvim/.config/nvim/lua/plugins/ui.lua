@@ -5,6 +5,13 @@ require('kanagawa').setup {
       all = { ui = { bg_gutter = 'none' } },
     },
   },
+  overrides = function()
+    return {
+      -- gopls tags every keyword as plain "keyword", which would cover
+      -- treesitter's finer captures (e.g. red @keyword.return)
+      ['@lsp.type.keyword.go'] = {},
+    }
+  end,
 }
 vim.cmd.colorscheme 'kanagawa-wave'
 
