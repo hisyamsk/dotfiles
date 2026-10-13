@@ -2,7 +2,13 @@ require('kanagawa').setup {
   commentStyle = { italic = false },
   colors = {
     theme = {
-      all = { ui = { bg_gutter = 'none' } },
+      all = {
+        ui = {
+          bg_gutter = 'none',
+          -- Popup menus share the float bg (sumiInk0) instead of waveBlue1
+          pmenu = { bg = '#16161D', bg_sbar = '#16161D' },
+        },
+      },
     },
   },
   overrides = function()

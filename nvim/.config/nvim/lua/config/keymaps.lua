@@ -17,8 +17,8 @@ map('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rr
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Buffers
-map('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
-map('n', '[b', '<cmd>bprev<CR>', { desc = 'Previous buffer' })
+map('n', '<Tab>', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+map('n', '<S-Tab>', '<cmd>bprev<CR>', { desc = 'Previous buffer' })
 for i = 1, 9 do
   map('n', '<A-' .. i .. '>', function()
     local bufs = vim.fn.getbufinfo { buflisted = 1 }
