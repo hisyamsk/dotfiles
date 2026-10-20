@@ -31,7 +31,32 @@ set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg, jxl-pixbuf-loader
-output * bg /home/hisyam/Pictures/wallpaper.png fill
+output * bg #1F1F28 solid_color
+
+### Appearance
+#
+# Kanagawa monotone, matching waybar/style.css
+set $bg      #1F1F28
+set $surface #2A2A37
+set $overlay #363646
+set $fg      #DCD7BA
+set $muted   #727169
+set $crit    #E46876
+
+font pango:JetBrainsMono Nerd Font 10
+default_border pixel 2
+default_floating_border pixel 2
+titlebar_padding 8 4
+# Show only the program name; %class covers Xwayland windows
+for_window [all] title_format "%app_id%class"
+
+# class                 border    background text    indicator child_border
+client.focused          $overlay  $overlay   $fg     $muted    $muted
+client.focused_inactive $surface  $surface   $muted  $surface  $surface
+client.unfocused        $bg       $bg        $muted  $bg       $bg
+client.urgent           $crit     $bg        $crit   $crit     $crit
+client.placeholder      $bg       $bg        $muted  $bg       $bg
+client.background       $bg
 
 input type:touchpad {
     natural_scroll enabled
