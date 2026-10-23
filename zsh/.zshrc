@@ -38,11 +38,17 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' formats " (%F{magenta}${git_icon} %b%f)"
 zstyle ':vcs_info:git:*' actionformats " (%F{magenta}${git_icon} %b|%a%f)"
 
+# aliases
+
+# gcc
 c99() {
     local src="$1"
     shift
     gcc -std=c99 -Wall -Wextra -Wpedantic "$src" "$@" -o main -lm
 }
+
+# zathura pdf viewer
+zt() { setsid -f zathura "$@" >/dev/null 2>&1; }
 
 PROMPT='%F{blue}%~%f${vcs_info_msg_0_}
 %F{15}➜%f '
